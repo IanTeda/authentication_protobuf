@@ -1,2 +1,3 @@
-# authentication_proto
-Protobuffer files for the authentication service
+# Authentication Protobuf
+
+Proto buffer files for the authentication service
