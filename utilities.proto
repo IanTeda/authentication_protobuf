@@ -1,9 +1,14 @@
 //-- ./proto/utilities.proto
 
+/// Authentication utilities service definitions
+
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package (service) name
 package authentication;
 
+// Import common proto definitions used across services
 import "authentication/common.proto";
 
 // The Utilities service definition.

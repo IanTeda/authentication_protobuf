@@ -1,8 +1,12 @@
 //-- ./proto/common.proto
 
+/// Authentication common definitions
+
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package name
 package authentication;
 
-// Empty message.
+// The request message containing the empty data.
 message Empty {}

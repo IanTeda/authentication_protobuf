@@ -1,12 +1,14 @@
 //-- ./proto/authentication.proto
 
 /// Authentication Service definitions
-/// ---
 
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package name
 package authentication;
 
+// Define the Authentication service definition (endpoints).
 service Authentication {
     rpc Login (LoginRequest) returns (TokenResponse);
     rpc Refresh(RefreshRequest) returns (TokenResponse);
@@ -16,43 +18,52 @@ service Authentication {
     rpc Logout (LogoutRequest) returns (LogoutResponse);
 }
 
+// The request message containing the login data.
 message LoginRequest {
     string email = 1;
     string password = 2;
 }
 
+// The response message containing the token data.
 message TokenResponse {
     string access_token = 1;
     string refresh_token = 2;
 }
 
+// The request message containing the refresh token data.
 message RefreshRequest {
     string refresh_token = 1;
 }
 
+// The request message containing the update password data.
 message UpdatePasswordRequest {
     string email = 1;
     string password_original = 2;
     string password_new = 3;
 }
 
+// The request message containing the reset password data.
 message ResetPasswordRequest {
     string email = 1;
 }
 
+// The response message containing the reset password data.
 message ResetPasswordResponse {
     string message = 1;
 }
 
+// The request message containing the register data.
 message RegisterRequest {
     string email = 1;
     string password = 2;
 }
 
+// The request message containing the logout data.
 message LogoutRequest {
     string refresh_token = 1;
 } 
 
+// The response message containing the logout data.
 message LogoutResponse {
     int64 rows_affected = 1;
 } 

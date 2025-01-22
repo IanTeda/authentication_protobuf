@@ -1,9 +1,14 @@
 //-- ./proto/logins.proto
 
+/// Authentication logins service definitions
+
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package name
 package authentication;
 
+// Logins service definition (endpoints).
 service logins  {
   rpc Create (LoginsCreateRequest) returns (LoginsResponse);
   rpc Read (LoginsReadRequest) returns (LoginsResponse);
@@ -12,12 +17,14 @@ service logins  {
   rpc Delete (LoginsDeleteRequest) returns (LoginsDeleteResponse);
 }
 
+// The request message containing the create login data.
 message LoginsCreateRequest {
   string user_id = 1;
   string login_on = 2;
   optional int32 login_ip = 3;
 }
 
+// The response message containing the login data.
 message LoginsResponse {
   string id = 1;
   string user_id = 2;
@@ -25,15 +32,18 @@ message LoginsResponse {
   optional int32 login_ip = 4;
 }
 
+// The request message containing the read login data.
 message LoginsReadRequest {
   string id = 1;
 }
 
+// The request message containing the login index data.
 message LoginsIndexRequest {
   int32 limit = 1;
   int32 offset = 2;
 }
 
+// The request message containing the update login data.
 message LoginsUpdateRequest {
   string id = 1;
   string user_id = 2;
@@ -41,14 +51,17 @@ message LoginsUpdateRequest {
   optional int32 login_ip = 4;
 }
 
+// The request message containing the delete login data.
 message LoginsDeleteRequest {
   string id = 1;
 }
 
+// The response message containing the login index data.
 message LoginsIndexResponse {
   repeated LoginsResponse logins = 1;
 }
 
+// The response message containing the delete login data.
 message LoginsDeleteResponse {
   int64 rows_affected = 1;
 }

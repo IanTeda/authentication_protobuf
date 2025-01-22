@@ -1,9 +1,14 @@
 //-- ./proto/users.proto
 
+/// Authentication users service definitions
+
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package name
 package authentication;
 
+// Define the Users service definition (endpoints).``
 service Users {
   rpc Create (CreateUserRequest) returns (UserResponse);
   rpc Read (ReadUserRequest) returns (UserResponse);
@@ -12,6 +17,7 @@ service Users {
   rpc Delete (DeleteUserRequest) returns (DeleteUserResponse);
 }
 
+// The request message containing the create user data.
 message CreateUserRequest {
   string email = 1;
   string name = 2;
@@ -21,6 +27,7 @@ message CreateUserRequest {
   bool is_verified = 6;
 }
 
+// The response message containing the user response data.
 message UserResponse {
   string id = 1;
   string email = 2;
@@ -31,10 +38,12 @@ message UserResponse {
   string created_on = 7;
 }
 
+// The request message containing the read user data.
 message ReadUserRequest {
   string id = 1;
 }
 
+//
 message UpdateUserRequest {
   string id = 1;
   string email = 2;
@@ -44,19 +53,23 @@ message UpdateUserRequest {
   bool is_verified = 6;
 }
 
+// The request message containing the user index data. 
 message UserIndexRequest {
   int64 limit = 1;
   int64 offset = 2;
 }
 
+// The request message containing the user delete request data. 
 message DeleteUserRequest {
   string id = 1;
 }
 
+// The response message containing the user index response data.
 message UserIndexResponse {
   repeated UserResponse users = 1;
 }
 
+// The response message containing the user delete response data.
 message DeleteUserResponse {
   int64 rows_affected = 1;
 }

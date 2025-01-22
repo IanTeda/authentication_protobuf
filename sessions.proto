@@ -1,11 +1,17 @@
 //-- ./proto/sessions.proto
 
+/// Authentication sessions service definitions file
+
+// Use Protobuf version 3
 syntax = "proto3";
 
+// Define the protobuf package name
 package authentication;
 
+// Import common proto definitions used across services
 import "authentication/common.proto";
 
+// Define the Sessions service definition (endpoints).
 service Sessions {
   rpc Read (SessionsReadRequest) returns (SessionsResponse);
   rpc Index (SessionsIndexRequest) returns (SessionsIndexResponse);
@@ -17,31 +23,38 @@ service Sessions {
   rpc DeleteAll (Empty) returns (SessionsDeleteResponse);
 }
 
+// The request message containing the read session data.
 message SessionsReadRequest {
   string id = 1;
 }
 
+// The request message containing the session index data.
 message SessionsIndexRequest {
   int64 limit = 1;
   int64 offset = 2;
 }
 
+// The request message containing the revoke session data.
 message SessionsRevokeRequest {
   string id = 1;
 }
 
+// The request message containing the revoke user session data.
 message SessionsRevokeUserRequest {
   string user_id = 1;
 }
 
+// The response message containing the revoke session data.
 message SessionsDeleteRequest {
   string id = 1;
 }
 
+// The request message containing the delete session data.
 message SessionsDeleteUserRequest {
   string user_id = 1;
 }
 
+// The response message containing the session data.
 message SessionsResponse {
   string id = 1;
   string user_id = 2;
@@ -50,14 +63,17 @@ message SessionsResponse {
   string created_on =5;
 }
 
+// The response message containing the session index data.
 message SessionsIndexResponse {
   repeated SessionsResponse sessions = 1;
 }
 
+// The response message containing the revoke session data.
 message SessionsRevokeResponse {
   int64 rows_affected = 1;
 }
 
+// The response message containing the delete session data.
 message SessionsDeleteResponse {
   int64 rows_affected = 1;
 }
