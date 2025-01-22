@@ -9,7 +9,7 @@ syntax = "proto3";
 package authentication;
 
 // Define the Authentication service definition (endpoints).
-service Authentication {
+service AuthenticationService {
     rpc Login (LoginRequest) returns (TokenResponse);
     rpc Refresh(RefreshRequest) returns (TokenResponse);
     rpc UpdatePassword (UpdatePasswordRequest) returns (TokenResponse);

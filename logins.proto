@@ -9,7 +9,7 @@ syntax = "proto3";
 package authentication;
 
 // Logins service definition (endpoints).
-service logins  {
+service loginsService  {
   rpc Create (LoginsCreateRequest) returns (LoginsResponse);
   rpc Read (LoginsReadRequest) returns (LoginsResponse);
   rpc Index (LoginsIndexRequest) returns (LoginsIndexResponse);
