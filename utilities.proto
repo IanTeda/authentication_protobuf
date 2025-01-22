@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package authentication;
 
-import "common.proto";
+import "authentication/common.proto";
 
 // The Utilities service definition.
 service Utilities {
