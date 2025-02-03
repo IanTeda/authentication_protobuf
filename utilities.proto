@@ -13,7 +13,7 @@ import "authentication/common.proto";
 
 // The Utilities service definition.
 // TODO: Update the service name to include Service, leaving it as is to test against the docker image
-service Utilities {
+service UtilitiesService {
   // Sends a ping
   rpc Ping (Empty) returns (PingResponse) {}
 }
