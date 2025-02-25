@@ -7,7 +7,7 @@ package authentication;
 import "common.proto";
 
 // The Utilities service definition.
-service Utilities {
+service UtilitiesService {
   // Sends a ping
   rpc Ping (Empty) returns (PingResponse) {}
 }

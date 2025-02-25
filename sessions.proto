@@ -6,7 +6,7 @@ package authentication;
 
 import "common.proto";
 
-service Sessions {
+service SessionsService {
   rpc Read (SessionsReadRequest) returns (SessionsResponse);
   rpc Index (SessionsIndexRequest) returns (SessionsIndexResponse);
   rpc Revoke (SessionsRevokeRequest) returns (SessionsRevokeResponse);

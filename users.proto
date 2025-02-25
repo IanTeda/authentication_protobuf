@@ -4,7 +4,7 @@ syntax = "proto3";
 
 package authentication;
 
-service Users {
+service UsersService {
   rpc Create (CreateUserRequest) returns (UserResponse);
   rpc Read (ReadUserRequest) returns (UserResponse);
   rpc Index (UserIndexRequest) returns (UserIndexResponse);

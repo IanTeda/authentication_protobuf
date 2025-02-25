@@ -1,58 +1,114 @@
 //-- ./proto/authentication.proto
 
-/// Authentication Service definitions
-/// ---
+/// Authentication Service Definitions
+///
+/// This file contains the service definitions for the authentication grpc 
+/// service
+///
+/// It includes definitions for:
+/// - Authentication
+/// - Refresh
+/// - UpdatePassword
+/// - ResetPassword
+/// - Register
+/// - Logout
 
+// Protobuf syntax version
 syntax = "proto3";
 
+// Full qualified package name
 package authentication;
 
-service Authentication {
-    rpc Login (LoginRequest) returns (TokenResponse);
-    rpc Refresh(RefreshRequest) returns (TokenResponse);
-    rpc UpdatePassword (UpdatePasswordRequest) returns (TokenResponse);
-    rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
-    rpc Register (RegisterRequest) returns (TokenResponse);
-    rpc Logout (LogoutRequest) returns (LogoutResponse);
+// Protobuf service definition
+service AuthenticationService {
+  rpc Authentication (AuthenticationRequest) returns (AuthenticationResponse);
+  rpc Refresh(RefreshRequest) returns (AuthenticationResponse);
+  rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
+  rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+  rpc Register (RegisterRequest) returns (AuthenticationResponse);
+  rpc Logout (LogoutRequest) returns (LogoutResponse);
 }
 
-message LoginRequest {
-    string email = 1;
-    string password = 2;
+// Authentication request message definitions
+message AuthenticationRequest {
+  // User email address to authenticate
+  string email = 1;
+  // User password to authenticate against
+  string password = 2;
 }
 
-message TokenResponse {
-    string access_token = 1;
-    string refresh_token = 2;
+// Authentication response message definitions
+message AuthenticationResponse {
+  // Access token to be authorize grpc calls
+  string access_token = 1;
+  // Refresh token to be used to get a new access token
+  string refresh_token = 2;
 }
 
+// Refresh request message definitions
 message RefreshRequest {
-    string refresh_token = 1;
+  // Refresh token to authorize the issue of a new access token
+  string refresh_token = 1;
 }
 
+// Update password request message definitions
 message UpdatePasswordRequest {
-    string email = 1;
-    string password_original = 2;
-    string password_new = 3;
+  // User email address to authenticate update to user password
+  string email = 1;
+  // Original user password to authenticate the update
+  string password_original = 2;
+  // New user password for update
+  string password_new = 3;
 }
 
+// Update password response message definitions
+message UpdatePasswordResponse {
+  // Success status of the update password operation
+  bool success = 1;
+  // Message to describe the update password operation
+  string message = 2;
+}
+
+// Reset password request message definitions
 message ResetPasswordRequest {
-    string email = 1;
+  // User email address of password reset request
+  string email = 1;
 }
 
+// Reset password response message definitions
 message ResetPasswordResponse {
-    string message = 1;
+  // Success status of the reset password operation
+  bool success = 1;
+  // Message to describe the reset password operation
+  string message = 2;
 }
 
+// Register request message definitions
 message RegisterRequest {
-    string email = 1;
-    string password = 2;
+  // User email address requesting registration
+  string email = 1;
+  // User password for registration
+  string password = 2;
 }
 
+// Register response message definitions
+message RegisterResponse {
+  // Success status of the registration operation
+  bool success = 1;
+  // Message to describe the registration operation
+  string message = 2;
+}
+
+// Logout request message definitions
 message LogoutRequest {
-    string refresh_token = 1;
+  // Refresh token to for logout (de-authorisation) operation
+  string refresh_token = 1;
 } 
 
+// Logout response message definitions
 message LogoutResponse {
-    int64 rows_affected = 1;
+  // Success status of the logout operation
+  bool success = 1;
+  // Message to describe the logout operation
+  string message = 2;
 } 
