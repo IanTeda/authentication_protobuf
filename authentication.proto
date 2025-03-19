@@ -6,12 +6,12 @@
 /// service
 ///
 /// It includes definitions for:
-/// - Authentication
-/// - Refresh
-/// - UpdatePassword
-/// - ResetPassword
-/// - Register
-/// - Logout
+/// - Authentication: Authenticate a login request
+/// - Refresh: Using the refresh token, request a new access_token
+/// - UpdatePassword: Update my password
+/// - ResetPassword: Reset a password
+/// - Register: Request registration on the server
+/// - Logout: Remove my access and refresh tokens on the server
 
 // Protobuf syntax version
 syntax = "proto3";
@@ -19,96 +19,114 @@ syntax = "proto3";
 // Full qualified package name
 package authentication;
 
+// Import other proto messages
+import "common.proto";
+import "users.proto";
+
 // Protobuf service definition
 service AuthenticationService {
+  // Request authorisation using and email and password
+  // TODO: Impliment two factor authentication
   rpc Authentication (AuthenticationRequest) returns (AuthenticationResponse);
-  rpc Refresh(RefreshRequest) returns (AuthenticationResponse);
+  
+  // Request a new access token, using a current refresh token sent in header
+  rpc Refresh(Empty) returns (AuthenticationResponse);
+
+  // Update my current password. Service requires a valid access token
   rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
+
+  // Reset my password. Service sends a reset password email.
   rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
+
+  // Request registration. Service requires admin authorisation.
   rpc Register (RegisterRequest) returns (AuthenticationResponse);
-  rpc Logout (LogoutRequest) returns (LogoutResponse);
+
+  // Invalidate my access and reset tokens in the service
+  rpc Logout (Empty) returns (LogoutResponse);
 }
 
-// Authentication request message definitions
+// Authentication request message definition
 message AuthenticationRequest {
   // User email address to authenticate
   string email = 1;
+
   // User password to authenticate against
   string password = 2;
 }
 
-// Authentication response message definitions
+// Authentication response message definition
 message AuthenticationResponse {
   // Access token to be authorize grpc calls
   string access_token = 1;
-  // Refresh token to be used to get a new access token
-  string refresh_token = 2;
+
+  // Return the user instance that has just signed in
+  UserResponse user = 2;
 }
 
-// Refresh request message definitions
-message RefreshRequest {
-  // Refresh token to authorize the issue of a new access token
-  string refresh_token = 1;
+// Refresh response message definitition
+message RefreshResponse {
+  string access_token =1;
 }
 
-// Update password request message definitions
+// Update password request message definition
 message UpdatePasswordRequest {
   // User email address to authenticate update to user password
   string email = 1;
+
   // Original user password to authenticate the update
   string password_original = 2;
+
   // New user password for update
   string password_new = 3;
 }
 
-// Update password response message definitions
+// Update password response message definition
 message UpdatePasswordResponse {
   // Success status of the update password operation
   bool success = 1;
+
   // Message to describe the update password operation
   string message = 2;
 }
 
-// Reset password request message definitions
+// Reset password request message definition
 message ResetPasswordRequest {
   // User email address of password reset request
   string email = 1;
 }
 
-// Reset password response message definitions
+// Reset password response message definition
 message ResetPasswordResponse {
   // Success status of the reset password operation
   bool success = 1;
+
   // Message to describe the reset password operation
   string message = 2;
 }
 
-// Register request message definitions
+// Register request message definition
 message RegisterRequest {
   // User email address requesting registration
   string email = 1;
+
   // User password for registration
   string password = 2;
 }
 
-// Register response message definitions
+// Register response message definition
 message RegisterResponse {
   // Success status of the registration operation
   bool success = 1;
+
   // Message to describe the registration operation
   string message = 2;
 }
 
-// Logout request message definitions
-message LogoutRequest {
-  // Refresh token to for logout (de-authorisation) operation
-  string refresh_token = 1;
-} 
-
-// Logout response message definitions
+// Logout response message definition
 message LogoutResponse {
   // Success status of the logout operation
   bool success = 1;
+  
   // Message to describe the logout operation
   string message = 2;
 } 
