@@ -1,19 +1,72 @@
 //-- ./proto/sessions.proto
 
+/// # Sessions Service Definition
+///
+/// This service is used to manage user sessions.
+///
+/// It allows for the creation, retrieval, revocation, and deletion of sessions.
+///
+/// It includes definitions for:
+/// - `Read` - Get a session by ID
+/// - `Index` - Get a list of sessions
+/// - `Revoke` - Revoke a session by ID
+/// - `RevokeUser` - Revoke all sessions for a user
+/// - `RevokeAll` - Revoke all sessions
+/// - `Delete` - Delete a session by ID
+/// - `DeleteUser` - Delete all sessions for a user
+/// - `DeleteAll` - Delete all sessions
+
+/// Protobuf syntax version
 syntax = "proto3";
 
+// Full qualified package name
 package authentication;
 
+// Import other proto messages
 import "common.proto";
 
+// Protobuf service definition
 service SessionsService {
+  // Get a session by ID
   rpc Read (SessionsReadRequest) returns (SessionsResponse);
+  
+  // Get a list of sessions with optional limit and offset for pagination.
   rpc Index (SessionsIndexRequest) returns (SessionsIndexResponse);
+  
+  // Revoke a session by ID
+  // This will invalidate the session and remove the refresh token.
+  // The session will still exist in the database, but it will be marked as 
+  // inactive.
+  // The session will not be deleted.
   rpc Revoke (SessionsRevokeRequest) returns (SessionsRevokeResponse);
+  
+  // Revoke all sessions for a user
+  // This will invalidate all sessions for the user and remove all refresh 
+  // tokens. The sessions will still exist in the database, but they will be 
+  // marked as inactive. The sessions will not be deleted.
   rpc RevokeUser (SessionsRevokeUserRequest) returns (SessionsRevokeResponse);
+
+  // Revoke all sessions
+  // This will invalidate all sessions and remove all refresh tokens.
+  // The sessions will still exist in the database, but they will be marked as 
+  // inactive.
+  // The sessions will not be deleted.
   rpc RevokeAll (Empty) returns (SessionsRevokeResponse);
+
+  // Delete a session by ID
+  // This will remove the session from the database.
+  // The session will no longer exist in the database.
   rpc Delete (SessionsDeleteRequest) returns (SessionsDeleteResponse);
+
+  // Delete all sessions for a user
+  // This will remove all sessions for the user from the database.
+  // The sessions will no longer exist in the database.
   rpc DeleteUser (SessionsDeleteUserRequest) returns (SessionsDeleteResponse);
+
+  // Delete all sessions
+  // This will remove all sessions from the database.
+  // The sessions will no longer exist in the database.
+  // This is a destructive operation and should be used with caution.
   rpc DeleteAll (Empty) returns (SessionsDeleteResponse);
 }
 
@@ -45,9 +98,12 @@ message SessionsDeleteUserRequest {
 message SessionsResponse {
   string id = 1;
   string user_id = 2;
-  string refresh_token = 3;
-  bool is_active = 4;
-  string created_on =5;
+  string login_on = 3;
+  optional int32 login_ip = 4;
+  string refresh_token = 5;
+  bool is_active = 6;
+  optional string logout_on = 7;
+  optional int32 logout_ip = 8;
 }
 
 message SessionsIndexResponse {

@@ -26,7 +26,6 @@ import "users.proto";
 // Protobuf service definition
 service AuthenticationService {
   // Request authorisation using and email and password
-  // TODO: Impliment two factor authentication
   rpc Authentication (AuthenticationRequest) returns (AuthenticationResponse);
   
   // Request a new access token, using a current refresh token sent in header
