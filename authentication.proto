@@ -3,10 +3,10 @@
 /// Authentication Service Definitions
 ///
 /// This file contains the service definitions for the authentication grpc 
-/// service
+/// service.
 ///
 /// It includes definitions for:
-/// - Authentication: Authenticate a login request
+/// - Login: Authenticate a login request
 /// - Refresh: Using the refresh token, request a new access_token
 /// - UpdatePassword: Update my password
 /// - ResetPassword: Reset a password
@@ -26,10 +26,10 @@ import "users.proto";
 // Protobuf service definition
 service AuthenticationService {
   // Request authorisation using and email and password
-  rpc Authentication (AuthenticationRequest) returns (AuthenticationResponse);
+  rpc Login (LoginRequest) returns (LoginResponse);
   
   // Request a new access token, using a current refresh token sent in header
-  rpc Refresh(Empty) returns (AuthenticationResponse);
+  rpc Refresh(Empty) returns (RefreshResponse);
 
   // Update my current password. Service requires a valid access token
   rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordResponse);
@@ -38,14 +38,14 @@ service AuthenticationService {
   rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordResponse);
 
   // Request registration. Service requires admin authorisation.
-  rpc Register (RegisterRequest) returns (AuthenticationResponse);
+  rpc Register (RegisterRequest) returns (RegisterResponse);
 
   // Invalidate my access and reset tokens in the service
   rpc Logout (Empty) returns (LogoutResponse);
 }
 
 // Authentication request message definition
-message AuthenticationRequest {
+message LoginRequest {
   // User email address to authenticate
   string email = 1;
 
@@ -54,7 +54,7 @@ message AuthenticationRequest {
 }
 
 // Authentication response message definition
-message AuthenticationResponse {
+message LoginResponse {
   // Access token to be authorize grpc calls
   string access_token = 1;
 

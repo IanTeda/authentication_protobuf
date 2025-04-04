@@ -100,7 +100,7 @@ message SessionsResponse {
   string user_id = 2;
   string login_on = 3;
   optional int32 login_ip = 4;
-  string login_expires_on = 5;
+  string expires_on = 5;
   string refresh_token = 6;
   bool is_active = 7;
   optional string logout_on = 8;
