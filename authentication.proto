@@ -55,16 +55,21 @@ message LoginRequest {
 
 // Authentication response message definition
 message LoginResponse {
-  // Access token to be authorize grpc calls
+  // Access token to be authorise grpc calls
   string access_token = 1;
 
   // Return the user instance that has just signed in
   UserResponse user = 2;
 }
 
-// Refresh response message definitition
+// Refresh response message definition
 message RefreshResponse {
-  string access_token =1;
+  // Access token to be authorise grpc calls
+  string access_token = 1;
+
+  // Return the user instance that has just signed in. This is needed because
+  // the user is store in React memory which is lost between browser refreshes
+  UserResponse user = 2;
 }
 
 // Update password request message definition
